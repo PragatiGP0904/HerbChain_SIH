@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herb Registration - Farmer Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(180deg, #B4FF9B 0%, #E4FFDB 100%);
+            min-height: 100vh;
+            padding: 20px 16px;
+            position: relative;
+            font-display: swap;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .back-arrow {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .back-arrow:hover {
+            transform: translateX(-3px);
+        }
+
+        .language-btn {
+            background: #186000;
+            color: #E0FFD6;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            font-display: swap;
+        }
+
+        .language-btn:hover {
+            background: #1a7000;
+            transform: translateY(-1px);
+        }
+
+        .form-title {
+            color: #000000;
+            font-weight: 500;
+            font-size: 17px;
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.3;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            color: #002F23;
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-icon {
+            width: 16px;
+            height: 16px;
+            opacity: 0.7;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+            position: relative;
+        }
+
+        .info-icon:hover {
+            opacity: 1;
+        }
+
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            background-color: #002F23;
+            color: #E0FFD6;
+            text-align: left;
+            border-radius: 8px;
+            padding: 8px 12px;
+            position: absolute;
+            z-index: 1000;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            font-size: 12px;
+            font-weight: 400;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+            box-shadow: 0px 4px 12px rgba(0, 47, 35, 0.3);
+        }
+
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #002F23 transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .form-input {
+            width: 100%;
+            background: #F0FFEB;
+            border: 0.7px solid #00B084;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 14.5px;
+            color: #007D5E;
+            box-shadow: 0px 0px 3px rgba(0, 147, 110, 0.72);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-input:focus {
+            box-shadow: 0px 0px 8px rgba(0, 147, 110, 0.85);
+            border-color: #00936E;
+            transform: translateY(-1px);
+        }
+
+        .form-input:hover {
+            box-shadow: 0px 0px 5px rgba(0, 147, 110, 0.78);
+        }
+
+        .form-input.generated {
+            color: #3F1400;
+            background: #F5FFF0;
+            cursor: not-allowed;
+        }
+
+        .form-select {
+            width: 100%;
+            background: #F0FFEB;
+            border: 0.7px solid #00B084;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 14.5px;
+            color: #007D5E;
+            box-shadow: 0px 0px 3px rgba(0, 147, 110, 0.72);
+            transition: all 0.3s ease;
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%230E3900' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 45px;
+        }
+
+        .form-select:focus {
+            box-shadow: 0px 0px 8px rgba(0, 147, 110, 0.85);
+            border-color: #00936E;
+            transform: translateY(-1px);
+        }
+
+        .location-input {
+            background-image: url('loc.png');
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px 16px;
+            padding-right: 45px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 8px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .radio-input {
+            width: 18px;
+            height: 18px;
+            border: 1px solid #0B634D;
+            border-radius: 50%;
+            background: #00BD8E;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .radio-input:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .radio-input.checked:before {
+            opacity: 1;
+        }
+
+        .radio-label {
+            color: #002F23;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .quantity-group {
+            display: flex;
+            gap: 12px;
+            align-items: end;
+        }
+
+        .quantity-input {
+            flex: 1;
+        }
+
+        .unit-select {
+            width: 100px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 500;
+            font-size: 17px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-display: swap;
+        }
+
+        .btn-secondary {
+            background: rgba(0, 121, 91, 0.15);
+            color: #00785A;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 121, 91, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: #007859;
+            color: #E0FFD6;
+            box-shadow: inset 0px 0px 13px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary:hover {
+            background: #006B4D;
+            transform: translateY(-2px);
+            box-shadow: inset 0px 0px 13px rgba(0, 0, 0, 0.25), 0px 4px 12px rgba(0, 120, 89, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0px);
+        }
+
+        /* Success page */
+        .success-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #B4FF9B 0%, #E4FFDB 100%);
+            z-index: 1000;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .success-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            max-width: 350px;
+            width: 100%;
+        }
+
+        .success-animation {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .checkmark-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00B084, #00785A);
+            margin: 0 auto 20px;
+            position: relative;
+            animation: scaleIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0px 8px 25px rgba(0, 176, 132, 0.4);
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 30px;
+            border: 4px solid #E0FFD6;
+            border-top: none;
+            border-right: none;
+            transform: translate(-50%, -60%) rotate(-45deg);
+            animation: checkmarkDraw 0.8s ease-in-out 0.3s forwards;
+            opacity: 0;
+        }
+
+        .qr-icon {
+            width: 80px;
+            height: 80px;
+            background: #F0FFEB;
+            border-radius: 12px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: bounceIn 0.8s ease-out 0.6s forwards;
+            opacity: 0;
+            transform: scale(0.3);
+            box-shadow: 0px 4px 15px rgba(0, 176, 132, 0.2);
+        }
+
+        .success-title {
+            color: #002F23;
+            font-weight: 600;
+            font-size: 24px;
+            margin-bottom: 15px;
+            animation: slideUp 0.6s ease-out 0.9s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .success-subtitle {
+            color: #007D5E;
+            font-weight: 400;
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.4;
+            animation: slideUp 0.6s ease-out 1.1s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .batch-info {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0, 176, 132, 0.2);
+            animation: slideUp 0.6s ease-out 1.3s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .batch-info h4 {
+            color: #002F23;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .batch-number {
+            color: #00785A;
+            font-weight: 600;
+            font-size: 18px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            animation: slideUp 0.6s ease-out 1.5s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .success-btn {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 500;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-download {
+            background: #007859;
+            color: #E0FFD6;
+            box-shadow: 0px 4px 15px rgba(0, 120, 89, 0.3);
+        }
+
+        .btn-download:hover {
+            background: #006B4D;
+            transform: translateY(-2px);
+            box-shadow: 0px 6px 20px rgba(0, 120, 89, 0.4);
+        }
+
+        .btn-new {
+            background: rgba(0, 121, 91, 0.15);
+            color: #00785A;
+            border: 1px solid rgba(0, 176, 132, 0.3);
+        }
+
+        .btn-new:hover {
+            background: rgba(0, 121, 91, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .floating-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #00B084;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        .particle:nth-child(1) { animation: float 3s ease-in-out infinite; animation-delay: 0s; }
+        .particle:nth-child(2) { animation: float 3s ease-in-out infinite; animation-delay: 0.5s; }
+        .particle:nth-child(3) { animation: float 3s ease-in-out infinite; animation-delay: 1s; }
+        .particle:nth-child(4) { animation: float 3s ease-in-out infinite; animation-delay: 1.5s; }
+        .particle:nth-child(5) { animation: float 3s ease-in-out infinite; animation-delay: 2s; }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes checkmarkDraw {
+            0% { opacity: 0; transform: translate(-50%, -60%) rotate(-45deg) scale(0); }
+            100% { opacity: 1; transform: translate(-50%, -60%) rotate(-45deg) scale(1); }
+        }
+
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group {
+            animation: slideInUp 0.6s ease forwards;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.15s; }
+        .form-group:nth-child(3) { animation-delay: 0.2s; }
+        .form-group:nth-child(4) { animation-delay: 0.25s; }
+        .form-group:nth-child(5) { animation-delay: 0.3s; }
+        .form-group:nth-child(6) { animation-delay: 0.35s; }
+        .form-group:nth-child(7) { animation-delay: 0.4s; }
+        .form-group:nth-child(8) { animation-delay: 0.45s; }
+        .form-group:nth-child(9) { animation-delay: 0.5s; }
+        .form-group:nth-child(10) { animation-delay: 0.55s; }
+        .form-group:nth-child(11) { animation-delay: 0.6s; }
+        .form-group:nth-child(12) { animation-delay: 0.65s; }
+        .form-group:nth-child(13) { animation-delay: 0.7s; }
+
+        /* Responsive adjustments */
+        @media (max-width: 360px) {
+            .container {
+                padding: 0 12px;
+            }
+            
+            .form-title {
+                font-size: 16px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <svg class="back-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 12H5M12 19L5 12L12 5" stroke="#002F23" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            
+            <button class="language-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2C13.1 2 14 2.9 14 4V8C14 9.1 13.1 10 12 10C10.9 10 10 9.1 10 8V4C10 2.9 10.9 2 12 2ZM21 9V7L19 8L21 9ZM3 9L5 8L3 7V9ZM12 21C10.9 21 10 20.1 10 19V15C10 13.9 10.9 13 12 13C13.1 13 14 13.9 14 15V19C14 20.1 13.1 21 12 21Z" fill="currentColor"/>
+                </svg>
+                Language
+            </button>
+        </div>
+
+        <h1 class="form-title">Please Fill The Form Below To<br>Register Your Herb</h1>
+
+        <form id="herbForm">
+            <div class="form-group">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-input" id="name" value="R. Muthuvel">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Location</label>
+                <input type="text" class="form-input location-input" id="location" value="Anaikatti, Coimbatore">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Mobile Number</label>
+                <input type="tel" class="form-input" id="mobile" value="9876546098">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    Farmer ID 
+                    <div class="tooltip">
+                        <svg class="info-icon" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="#00B084" stroke-width="2"/>
+                            <path d="M12 16V12M12 8H12.01" stroke="#00B084" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span class="tooltip-text">This is your unique farmer identification number. It's automatically generated and cannot be changed. This ID will be used to track all your submissions.</span>
+                    </div>
+                </label>
+                <input type="text" class="form-input generated" id="farmerId" value="IG65R3122" readonly>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    Herb/Crop Name 
+                    <div class="tooltip">
+                        <svg class="info-icon" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="#00B084" stroke-width="2"/>
+                            <path d="M12 16V12M12 8H12.01" stroke="#00B084" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span class="tooltip-text">Select the primary herb or crop you are registering. This will help buyers identify the exact type of produce you're offering.</span>
+                    </div>
+                </label>
+                <select class="form-select" id="herbName">
+                    <option value="">Select Herb/Crop</option>
+                    <option value="Tulsi">Tulsi</option>
+                    <option value="Mint">Mint</option>
+                    <option value="Basil">Basil</option>
+                    <option value="Oregano">Oregano</option>
+                    <option value="Thyme">Thyme</option>
+                    <option value="Rosemary">Rosemary</option>
+                    <option value="Sage">Sage</option>
+                    <option value="Cilantro">Cilantro</option>
+                    <option value="Parsley">Parsley</option>
+                    <option value="Ashwagandha">Ashwagandha</option>
+                    <option value="Turmeric">Turmeric</option>
+                    <option value="Ginger">Ginger</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    Variety 
+                    <div class="tooltip">
+                        <svg class="info-icon" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="#00B084" stroke-width="2"/>
+                            <path d="M12 16V12M12 8H12.01" stroke="#00B084" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span class="tooltip-text">Specify the variety of the herb/crop. Local varieties are traditional to your region, while hybrid varieties are crossbred for specific traits.</span>
+                    </div>
+                </label>
+                <select class="form-select" id="variety">
+                    <option value="">Select Variety</option>
+                    <option value="Local">Local</option>
+                    <option value="Hybrid">Hybrid</option>
+                    <option value="Indigenous">Indigenous</option>
+                    <option value="Improved">Improved</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    Cultivation Type 
+                    <div class="tooltip">
+                        <svg class="info-icon" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="#00B084" stroke-width="2"/>
+                            <path d="M12 16V12M12 8H12.01" stroke="#00B084" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span class="tooltip-text">Select your cultivation method. Organic means no synthetic chemicals, Conventional uses modern farming methods, Biodynamic follows holistic practices, Hydroponic grows plants in water.</span>
+                    </div>
+                </label>
+                <select class="form-select" id="cultivationType">
+                    <option value="">Select Cultivation Type</option>
+                    <option value="Organic">Organic</option>
+                    <option value="Conventional">Conventional</option>
+                    <option value="Biodynamic">Biodynamic</option>
+                    <option value="Hydroponic">Hydroponic</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    Certification Type 
+                    <div class="tooltip">
+                        <svg class="info-icon" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="#00B084" stroke-width="2"/>
+                            <path d="M12 16V12M12 8H12.01" stroke="#00B084" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span class="tooltip-text">Choose your certification if applicable. GAP (Good Agricultural Practices) ensures quality and safety. Organic certifications verify chemical-free production methods.</span>
+                    </div>
+                </label>
+                <select class="form-select" id="certification">
+                    <option value="">Select Certification</option>
+                    <option value="GAP">GAP (Good Agricultural Practices)</option>
+                    <option value="ORGANIC">Organic Certification</option>
+                    <option value="USDA">USDA Organic</option>
+                    <option value="JAS">JAS Organic</option>
+                    <option value="EU">EU Organic</option>
+                    <option value="NPOP">NPOP India</option>
+                    <option value="None">No Certification</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    Planting Date 
+                    <div class="tooltip">
+                        <svg class="info-icon" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="#00B084" stroke-width="2"/>
+                            <path d="M12 16V12M12 8H12.01" stroke="#00B084" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span class="tooltip-text">Enter the date when you planted or sowed the crop. This helps track the growth cycle and determines the freshness of the produce.</span>
+                    </div>
+                </label>
+                <input type="date" class="form-input" id="plantingDate">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    Harvest Date 
+                    <div class="tooltip">
+                        <svg class="info-icon" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="#00B084" stroke-width="2"/>
+                            <path d="M12 16V12M12 8H12.01" stroke="#00B084" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span class="tooltip-text">Select the date when you harvested the crop. This is crucial for determining the shelf life and quality of the produce for consumers.</span>
+                    </div>
+                </label>
+                <input type="date" class="form-input" id="harvestDate">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    Fertilizers/Pesticides Used? 
+                    <div class="tooltip">
+                        <svg class="info-icon" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="#00B084" stroke-width="2"/>
+                            <path d="M12 16V12M12 8H12.01" stroke="#00B084" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span class="tooltip-text">Indicate whether you used any chemical fertilizers or pesticides during cultivation. This information is important for health-conscious consumers and regulatory compliance.</span>
+                    </div>
+                </label>
+                <div class="radio-group">
+                    <div class="radio-option" onclick="selectRadio('yes')">
+                        <div class="radio-input" id="radio-yes"></div>
+                        <label class="radio-label">Yes</label>
+                    </div>
+                    <div class="radio-option" onclick="selectRadio('no')">
+                        <div class="radio-input" id="radio-no"></div>
+                        <label class="radio-label">No</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    Lot/Batch Number 
+                    <div class="tooltip">
+                        <svg class="info-icon" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="#00B084" stroke-width="2"/>
+                            <path d="M12 16V12M12 8H12.01" stroke="#00B084" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span class="tooltip-text">This is your unique batch/lot number for this specific harvest. It's automatically generated for traceability and quality control purposes.</span>
+                    </div>
+                </label>
+                <input type="text" class="form-input generated" id="batchNumber" value="T2EO87ZA" readonly>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    Quantity 
+                    <div class="tooltip">
+                        <svg class="info-icon" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="#00B084" stroke-width="2"/>
+                            <path d="M12 16V12M12 8H12.01" stroke="#00B084" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span class="tooltip-text">Enter the total quantity of this batch you're registering. Choose the appropriate unit (ton, kg, g, lb, oz) from the dropdown.</span>
+                    </div>
+                </label>
+                <div class="quantity-group">
+                    <input type="number" class="form-input quantity-input" id="quantity" placeholder="Enter quantity" min="0" step="0.1">
+                    <select class="form-select unit-select" id="unit">
+                        <option value="">Unit</option>
+                        <option value="ton">ton</option>
+                        <option value="kg">kg</option>
+                        <option value="g">g</option>
+                        <option value="lb">lb</option>
+                        <option value="oz">oz</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    Any Extra Information? 
+                    <div class="tooltip">
+                        <svg class="info-icon" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="#00B084" stroke-width="2"/>
+                            <path d="M12 16V12M12 8H12.01" stroke="#00B084" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span class="tooltip-text">Add any additional information about your crop that might be relevant, such as special growing conditions, awards, or quality notes.</span>
+                    </div>
+                </label>
+                <input type="text" class="form-input" id="extraInfo" placeholder="Enter any additional notes...">
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="btn btn-secondary" onclick="addAnother()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 8V16M8 12H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Add another
+                </button>
+                <button type="submit" class="btn btn-primary" id="submitBtn">
+                    Submit
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Success Page -->
+    <div id="successPage" class="success-page">
+        <div class="floating-particles">
+            <div class="particle" style="left: 10%; top: 20%;"></div>
+            <div class="particle" style="left: 80%; top: 30%;"></div>
+            <div class="particle" style="left: 20%; top: 70%;"></div>
+            <div class="particle" style="left: 90%; top: 60%;"></div>
+            <div class="particle" style="left: 60%; top: 10%;"></div>
+        </div>
+        
+        <div class="success-content">
+            <div class="success-animation">
+                <div class="checkmark-circle">
+                    <div class="checkmark"></div>
+                </div>
+                <div class="qr-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <!-- QR Code Icon -->
+                        <rect width="40" height="40" rx="4" fill="#007D5E"/>
+                        <rect x="2" y="2" width="12" height="12" rx="2" fill="#F0FFEB"/>
+                        <rect x="26" y="2" width="12" height="12" rx="2" fill="#F0FFEB"/>
+                        <rect x="2" y="26" width="12" height="12" rx="2" fill="#F0FFEB"/>
+                        <rect x="5" y="5" width="6" height="6" fill="#007D5E"/>
+                        <rect x="29" y="5" width="6" height="6" fill="#007D5E"/>
+                        <rect x="5" y="29" width="6" height="6" fill="#007D5E"/>
+                        <rect x="18" y="18" width="4" height="4" fill="#F0FFEB"/>
+                        <rect x="16" y="6" width="2" height="2" fill="#F0FFEB"/>
+                        <rect x="20" y="6" width="2" height="2" fill="#F0FFEB"/>
+                        <rect x="24" y="6" width="2" height="2" fill="#F0FFEB"/>
+                        <rect x="16" y="16" width="2" height="2" fill="#F0FFEB"/>
+                        <rect x="26" y="16" width="2" height="2" fill="#F0FFEB"/>
+                        <rect x="30" y="16" width="2" height="2" fill="#F0FFEB"/>
+                        <rect x="34" y="16" width="2" height="2" fill="#F0FFEB"/>
+                        <rect x="18" y="26" width="2" height="2" fill="#F0FFEB"/>
+                        <rect x="22" y="30" width="2" height="2" fill="#F0FFEB"/>
+                        <rect x="26" y="26" width="2" height="2" fill="#F0FFEB"/>
+                        <rect x="30" y="30" width="2" height="2" fill="#F0FFEB"/>
+                        <rect x="34" y="26" width="2" height="2" fill="#F0FFEB"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <h2 class="success-title">QR Generated Successfully!</h2>
+            <p class="success-subtitle">Your herb has been registered on the blockchain. Customers can now scan the QR code to verify authenticity.</p>
+            
+            <div class="batch-info">
+                <h4>Batch Number</h4>
+                <div class="batch-number" id="successBatchNumber">T2EO87ZA</div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="success-btn btn-download" onclick="downloadQR()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M7 10L12 15M12 15L17 10M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Download QR
+                </button>
+                <button class="success-btn btn-new" onclick="createNewEntry()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 8V16M8 12H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    New Entry
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedRadio = null;
+
+        function selectRadio(value) {
+            document.getElementById('radio-yes').classList.remove('checked');
+            document.getElementById('radio-no').classList.remove('checked');
+            document.getElementById('radio-' + value).classList.add('checked');
+            selectedRadio = value;
+        }
+
+        function generateRandomId(prefix, length = 8) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let result = prefix;
+            for (let i = 0; i < length; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        function addAnother() {
+            // Generate new IDs
+            const newFarmerId = generateRandomId('IG', 6);
+            const newBatchNumber = generateRandomId('', 8);
+            
+            // Reset form but keep personal info
+            const name = document.getElementById('name').value;
+            const location = document.getElementById('location').value;
+            const mobile = document.getElementById('mobile').value;
+            
+            // Reset all fields
+            document.getElementById('herbForm').reset();
+            
+            // Restore personal info
+            document.getElementById('name').value = name;
+            document.getElementById('location').value = location;
+            document.getElementById('mobile').value = mobile;
+            
+            // Set new generated IDs
+            document.getElementById('farmerId').value = newFarmerId;
+            document.getElementById('batchNumber').value = newBatchNumber;
+            
+            // Reset selections to blank
+            document.getElementById('herbName').value = '';
+            document.getElementById('variety').value = '';
+            document.getElementById('cultivationType').value = '';
+            document.getElementById('certification').value = '';
+            document.getElementById('unit').value = '';
+            document.getElementById('plantingDate').value = '';
+            document.getElementById('harvestDate').value = '';
+            document.getElementById('quantity').value = '';
+            document.getElementById('extraInfo').value = '';
+            
+            // Reset radio buttons to none selected
+            document.getElementById('radio-yes').classList.remove('checked');
+            document.getElementById('radio-no').classList.remove('checked');
+            selectedRadio = null;
+            
+            // Show success animation
+            const formGroups = document.querySelectorAll('.form-group');
+            formGroups.forEach((group, index) => {
+                group.style.opacity = '0';
+                group.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    group.style.opacity = '1';
+                    group.style.transform = 'translateY(0)';
+                    group.style.transition = 'all 0.3s ease';
+                }, index * 50);
+            });
+        }
+
+        function showSuccessPage() {
+            document.getElementById('successPage').style.display = 'flex';
+            // Update the batch number in success page
+            const batchNumber = document.getElementById('batchNumber').value;
+            document.getElementById('successBatchNumber').textContent = batchNumber;
+        }
+
+        function createNewEntry() {
+            document.getElementById('successPage').style.display = 'none';
+            addAnother();
+        }
+
+        function closeModal() {
+            document.getElementById('successPage').style.display = 'none';
+        }
+
+        function downloadQR() {
+            // Create a canvas with QR code
+            const canvas = document.createElement('canvas');
+            canvas.width = 300;
+            canvas.height = 300;
+            const ctx = canvas.getContext('2d');
+            
+            // Fill background
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, 300, 300);
+            
+            // Draw QR pattern (simplified)
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 0, 75, 75);
+            ctx.fillRect(225, 0, 75, 75);
+            ctx.fillRect(0, 225, 75, 75);
+            
+            // Add some random pattern
+            for (let i = 0; i < 50; i++) {
+                const x = Math.floor(Math.random() * 20) * 15;
+                const y = Math.floor(Math.random() * 20) * 15;
+                if ((x < 75 && y < 75) || (x > 200 && y < 75) || (x < 75 && y > 200)) continue;
+                ctx.fillRect(x, y, 15, 15);
+            }
+            
+            // Download
+            const link = document.createElement('a');
+            link.download = `herb-qr-${document.getElementById('batchNumber').value}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // Form submission
+        document.getElementById('herbForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Form submitted!'); // Debug log
+            
+            // Simple validation - check only required fields that have values
+            const requiredFields = [
+                { id: 'name', name: 'Name' },
+                { id: 'location', name: 'Location' },
+                { id: 'mobile', name: 'Mobile Number' },
+                { id: 'herbName', name: 'Herb/Crop Name' },
+                { id: 'variety', name: 'Variety' },
+                { id: 'cultivationType', name: 'Cultivation Type' },
+                { id: 'plantingDate', name: 'Planting Date' },
+                { id: 'harvestDate', name: 'Harvest Date' },
+                { id: 'quantity', name: 'Quantity' },
+                { id: 'unit', name: 'Unit' }
+            ];
+            
+            let isValid = true;
+            let missingFields = [];
+            
+            requiredFields.forEach(field => {
+                const input = document.getElementById(field.id);
+                if (!input.value || input.value.trim() === '') {
+                    input.style.border = '2px solid #ff4444';
+                    input.style.boxShadow = '0px 0px 8px rgba(255, 68, 68, 0.5)';
+                    isValid = false;
+                    missingFields.push(field.name);
+                    
+                    // Reset border after 3 seconds
+                    setTimeout(() => {
+                        input.style.border = '0.7px solid #00B084';
+                        input.style.boxShadow = '0px 0px 3px rgba(0, 147, 110, 0.72)';
+                    }, 3000);
+                }
+            });
+            
+            // Check if radio button is selected
+            if (!selectedRadio) {
+                isValid = false;
+                missingFields.push('Fertilizers/Pesticides selection');
+                // Highlight radio buttons
+                document.getElementById('radio-yes').style.boxShadow = '0 0 8px rgba(255, 68, 68, 0.5)';
+                document.getElementById('radio-no').style.boxShadow = '0 0 8px rgba(255, 68, 68, 0.5)';
+                setTimeout(() => {
+                    document.getElementById('radio-yes').style.boxShadow = '';
+                    document.getElementById('radio-no').style.boxShadow = '';
+                }, 3000);
+            }
+            
+            if (!isValid) {
+                // Show error message with missing fields
+                const errorMessage = 'Please fill in the following required fields:\n\n• ' + missingFields.join('\n• ');
+                alert(errorMessage);
+                return;
+            }
+            
+            // Add loading state
+            const submitBtn = document.querySelector('.btn-primary');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" fill="currentColor"><animate attributeName="r" values="3;3;5;3;3" dur="1s" repeatCount="indefinite"/></circle></svg> Processing...';
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.7';
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                showSuccessPage();
+            }, 2000);
+        });
+
+        // Backup click handler for submit button
+        document.addEventListener('DOMContentLoaded', function() {
+            const submitBtn = document.getElementById('submitBtn');
+            if (submitBtn) {
+                submitBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Submit button clicked!'); // Debug log
+                    // Trigger form submission
+                    document.getElementById('herbForm').dispatchEvent(new Event('submit'));
+                });
+            }
+        });
+
+        // Auto-generate new IDs on page load
+        window.addEventListener('load', function() {
+            if (!document.getElementById('farmerId').value || document.getElementById('farmerId').value === 'IG65R3122') {
+                document.getElementById('farmerId').value = generateRandomId('IG', 6);
+            }
+            if (!document.getElementById('batchNumber').value || document.getElementById('batchNumber').value === 'T2EO87ZA') {
+                document.getElementById('batchNumber').value = generateRandomId('', 8);
+            }
+        });
+
+        // Add smooth focus transitions
+        document.querySelectorAll('.form-input, .form-select').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
