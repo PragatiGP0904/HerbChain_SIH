@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Farmer Home - HerbChain</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #f0fff4;
+      --card: #ffffff;
+      --accent: #16a34a;
+      --muted: #6b7280;
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color:#1f2937;
+      padding-bottom:120px;
+    }
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .banner { 
+      display:flex; 
+      align-items:center; 
+      gap:14px; 
+      position: relative;
+      cursor: pointer;
+    }
+    .avatar {
+      width:64px; 
+      height:64px;
+      border-radius:50%;
+      object-fit: cover;
+      background:#dcfce7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 2px solid var(--accent);
+    }
+    .banner:hover .avatar {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.3);
+    }
+    .avatar i {
+      font-size: 32px;
+      color: var(--accent);
+      transition: opacity 0.3s ease;
+    }
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+      transition: opacity 0.3s ease;
+    }
+    .banner-text .title { 
+      font-size:18px; 
+      font-weight:700; 
+      transition: color 0.3s ease;
+    }
+    .banner:hover .banner-text .title {
+      color: var(--accent);
+    }
+    .banner-text .small { 
+      font-size:12px; 
+      color:var(--muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .banner-text .upload-hint {
+      font-size: 11px;
+      color: var(--accent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .banner:hover .upload-hint {
+      opacity: 1;
+    }
+    .quick-grid {
+      display:grid; 
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    .quick-btn {
+      border:none; 
+      border-radius:14px;
+      background:linear-gradient(180deg,#22c55e,#16a34a);
+      color:white;
+      padding:14px;
+      text-align:left;
+      cursor:pointer;
+      box-shadow:0 6px 14px rgba(22,163,74,0.2);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .quick-btn:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+    .quick-btn:hover:before {
+      left: 100%;
+    }
+    .quick-btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow:0 12px 20px rgba(22,163,74,0.35);
+    }
+    .quick-btn .icon { 
+      font-size:22px; 
+      margin-bottom: 5px; 
+      transition: transform 0.3s ease;
+    }
+    .quick-btn:hover .icon {
+      transform: scale(1.2);
+    }
+    .quick-btn .q-title { font-size:15px; font-weight:600; margin-top:6px; }
+    .quick-btn .q-sub { font-size:12px; opacity:0.9; }
+    .section-title { 
+      font-weight:700; 
+      margin-bottom:8px; 
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title i {
+      color: var(--accent);
+    }
+    .batch {
+      display:flex; 
+      align-items:center; 
+      justify-content:space-between;
+      padding:12px; 
+      border-radius:12px;
+      background:#f9fdf9;
+      margin-top:8px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .batch:hover {
+      background: #e8f5e9;
+      transform: translateX(5px);
+    }
+    .batch-left { display:flex; align-items:center; gap:10px; }
+    .batch-img { 
+      width:48px; height:48px; 
+      background:#dcfce7; 
+      display:flex; align-items:center; justify-content:center; 
+      border-radius:12px; 
+      transition: transform 0.3s ease;
+    }
+    .batch:hover .batch-img {
+      transform: scale(1.1);
+    }
+    .batch-img i {
+      font-size: 22px;
+      color: var(--accent);
+    }
+    .muted { color:var(--muted); font-size:13px;}
+    .mini-grid { 
+      display:grid; 
+      grid-template-columns:1fr 1fr; 
+      gap:12px; 
+      margin-top:10px;
+    }
+    .mini { 
+      background:#f0fdf4; 
+      padding:12px; 
+      border-radius:12px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .mini:hover {
+      background: #e8f5e9;
+      transform: translateY(-3px);
+    }
+    .mini .m-title { font-weight:600; margin-bottom:4px;}
+    .mini i {
+      font-size: 18px;
+      margin-right: 5px;
+      color: var(--accent);
+      transition: transform 0.3s ease;
+    }
+    .mini:hover i {
+      transform: scale(1.2);
+    }
+    .bottom-nav {
+      position:fixed; 
+      bottom:0; 
+      left:50%; 
+      transform:translateX(-50%);
+      background:var(--card); 
+      border-radius:30px;
+      display:flex; 
+      justify-content:space-around; 
+      align-items:center;
+      width:min(760px,calc(100% - 24px));
+      padding:10px 0;
+      box-shadow:0 -4px 14px rgba(0,0,0,0.08);
+      z-index: 100;
+    }
+    .bottom-nav a {
+      display:flex; 
+      flex-direction:column; 
+      align-items:center;
+      font-size:12px; 
+      color:var(--muted); 
+      text-decoration:none;
+      transition: all 0.3s ease;
+      padding: 5px 10px;
+      border-radius: 20px;
+    }
+    .bottom-nav a:hover {
+      color: var(--accent);
+      background: #f0fdf4;
+    }
+    .bottom-nav i { 
+      font-size:18px; 
+      margin-bottom: 3px;
+      transition: transform 0.3s ease;
+    }
+    .bottom-nav a:hover i {
+      transform: scale(1.2);
+    }
+    .bottom-nav a.active {
+      color: var(--accent);
+      background: #f0fdf4;
+    }
+    .register-btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      margin: 14px 0;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+      text-align:center;
+      position: relative;
+      overflow: hidden;
+    }
+    .register-btn:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+    .register-btn:hover:before {
+      left: 100%;
+    }
+    .register-btn:hover {
+      background: linear-gradient(135deg, #d97706, #b45309);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    }
+    .register-btn i {
+      margin-right: 8px;
+      transition: transform 0.3s ease;
+    }
+    .register-btn:hover i {
+      transform: scale(1.2);
+    }
+    #profile-upload {
+      display: none;
+    }
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    .fade-in {
+      animation: fadeIn 1s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card {
+      animation: fadeIn 0.5s ease-in;
+    }
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+    .card:nth-child(4) { animation-delay: 0.4s; }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="card banner fade-in">
+      <div class="avatar" id="profile-avatar">
+        <!-- Default icon will be replaced with profile picture if available -->
+        <i class="fas fa-user"></i>
+        <img class="avatar-img" id="avatar-image" src="" alt="Profile">
+      </div>
+      <div class="banner-text">
+        <span class="small">Namaste</span>
+        <div class="title" id="farmerName">Ramesh Kumar, Your Herbs, Your Pride</div>
+        <span class="upload-hint">Click avatar to change profile picture</span>
+      </div>
+    </section>
+    <section class="card fade-in">
+      <div class="section-title"><i class="fas fa-bolt"></i>Quick Access</div>
+      <button class="register-btn pulse" onclick="registerHerb()">
+        <i class="fas fa-seedling"></i>To Register / Sell Herb
+      </button>
+      <div class="quick-grid">
+        <button class="quick-btn" onclick="voiceUpload()">
+          <div class="icon"><i class="fas fa-microphone"></i></div>
+          <div class="q-title">Voice Upload Crop</div>
+          <div class="q-sub">Speak to add crop details</div>
+        </button>
+        <button class="quick-btn" onclick="geoTag()">
+          <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="q-title">Geo-Tag My Farm</div>
+          <div class="q-sub">Auto-mark farm location</div>
+        </button>
+        <button class="quick-btn" onclick="qualityStatus()">
+          <div class="icon"><i class="fas fa-flask"></i></div>
+          <div class="q-title">Quality Test Status</div>
+          <div class="q-sub">See lab/AI results</div>
+        </button>
+        <button class="quick-btn" onclick="marketPrice()">
+          <div class="icon"><i class="fas fa-coins"></i></div>
+          <div class="q-title">Market Price Today</div>
+          <div class="q-sub">Real-time herb prices</div>
+        </button>
+      </div>
+    </section>
+    <section class="card fade-in">
+      <div class="section-title"><i class="fas fa-star"></i>Featured</div>
+      <article class="batch" onclick="viewVerifiedBatches()">
+        <div class="batch-left">
+          <div class="batch-img"><i class="fas fa-check-circle"></i></div>
+          <div>
+            <div>Verified Batches</div>
+            <div class="muted">Herbs approved on blockchain</div>
+          </div>
+        </div>
+      </article>
+      <article class="batch" onclick="viewPendingBatches()">
+        <div class="batch-left">
+          <div class="batch-img"><i class="fas fa-box"></i></div>
+          <div>
+            <div>Pending Approval</div>
+            <div class="muted">Track awaiting batches</div>
+          </div>
+        </div>
+      </article>
+      <article class="batch" onclick="viewFarmingTips()">
+        <div class="batch-left">
+          <div class="batch-img"><i class="fas fa-leaf"></i></div>
+          <div>
+            <div>Farming Tips</div>
+            <div class="muted">AI/Expert advice in local lang</div>
+          </div>
+        </div>
+      </article>
+    </section>
+    <section class="card fade-in">
+      <div class="section-title"><i class="fas fa-users"></i>Community & Benefits</div>
+      <div class="mini-grid">
+        <div class="mini" onclick="connectFarmers()">
+          <div class="m-title"><i class="fas fa-handshake"></i>Meet Other Farmers</div>
+          <div class="muted">Connect & share experiences</div>
+        </div>
+        <div class="mini" onclick="viewRewards()">
+          <div class="m-title"><i class="fas fa-award"></i>Premium Rewards</div>
+          <div class="muted">Extra income for authenticity</div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <nav class="bottom-nav">
+    <a href="#" class="active"><i class="fas fa-home"></i>Home</a>
+    <a href="#"><i class="fas fa-box"></i>My Batches</a>
+    <a href="#"><i class="fas fa-cloud-upload-alt"></i>Upload</a>
+    <a href="#"><i class="fas fa-users"></i>Community</a>
+    <a href="#"><i class="fas fa-user"></i>Profile</a>
+  </nav>
+  
+  <input type="file" id="profile-upload" accept="image/jpeg, image/jpg">
+  
+  <script>
+    function voiceUpload(){ alert("Voice upload feature coming soon!"); }
+    function geoTag(){ alert("Geo-tagging farm... (demo)"); }
+    function qualityStatus(){ alert("Quality test: Pending lab result"); }
+    function marketPrice(){ alert("Today's price: ₹120/kg"); }
+    function registerHerb(){ alert("Redirecting to herb registration page..."); }
+    function viewVerifiedBatches(){ alert("Viewing verified batches..."); }
+    function viewPendingBatches(){ alert("Viewing pending batches..."); }
+    function viewFarmingTips(){ alert("Viewing farming tips..."); }
+    function connectFarmers(){ alert("Connecting with other farmers..."); }
+    function viewRewards(){ alert("Viewing premium rewards..."); }
+    
+    // Handle profile picture upload when clicking on avatar
+    const profileUpload = document.getElementById('profile-upload');
+    const profileAvatar = document.getElementById('profile-avatar');
+    const avatarIcon = profileAvatar.querySelector('i');
+    const avatarImage = document.getElementById('avatar-image');
+    const banner = document.querySelector('.banner');
+    
+    // Make the entire banner clickable for profile upload
+    banner.addEventListener('click', function() {
+      profileUpload.click();
+    });
+    
+    profileUpload.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        // Check if file is JPG
+        if (!file.type.match('image/jpeg')) {
+          alert('Please select a JPG image file.');
+          return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          // Hide the icon and show the image
+          avatarIcon.style.display = 'none';
+          avatarImage.src = e.target.result;
+          avatarImage.style.display = 'block';
+          
+          // Add a slight pulse effect after upload
+          profileAvatar.classList.add('pulse');
+          setTimeout(() => {
+            profileAvatar.classList.remove('pulse');
+          }, 1000);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+    
+    // Add hover effect to the entire banner
+    banner.style.cursor = 'pointer';
+  </script>
+</body>
+</html>
